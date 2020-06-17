@@ -1,0 +1,78 @@
+CUDNN:
+  BENCHMARK: true
+  DETERMINISTIC: false
+  ENABLED: true
+GPUS: (0,1,2,3)
+OUTPUT_DIR: 'output'
+LOG_DIR: 'log'
+WORKERS: 4
+PRINT_FREQ: 100
+
+DATASET:
+  DATASET: cityscapes
+  ROOT: 'data/'
+  TEST_SET: 'list/cityscapes/val.lst'
+  TRAIN_SET: 'list/cityscapes/train.lst'
+  NUM_CLASSES: 19
+MODEL:
+  NAME: mdeq
+  PRETRAINED: ''
+  NUM_LAYERS: 3
+  DROPOUT: 0.03
+  F_THRES: 26
+  B_THRES: 26
+  WNORM: true
+  DOWNSAMPLE_TIMES: 2
+  NUM_GROUPS: 8
+  EXPANSION_FACTOR: 5
+  EXTRA:
+    FINAL_CONV_KERNEL: 1
+    FULL_STAGE:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 4
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 1
+      - 1
+      - 1
+      - 1
+      NUM_CHANNELS:
+      - 80
+      - 160
+      - 320
+      - 640
+      FUSE_METHOD: SUM
+LOSS:
+  USE_OHEM: false
+  OHEMTHRES: 0.9
+  OHEMKEEP: 131072
+TRAIN:
+  IMAGE_SIZE:
+  - 1024
+  - 512
+  BASE_SIZE: 2048
+  BATCH_SIZE_PER_GPU: 3
+  SHUFFLE: true
+  BEGIN_EPOCH: 0
+  END_EPOCH: 500
+  RESUME: false
+  OPTIMIZER: sgd
+  LR: 0.01
+  WD: 0.0003
+  MOMENTUM: 0.9
+  NESTEROV: false
+  FLIP: true
+  MULTI_SCALE: true
+  LR_SCHEDULER: 'cosine'
+  DOWNSAMPLERATE: 1
+  PRETRAIN_STEPS: 32000
+  IGNORE_LABEL: 255
+  SCALE_FACTOR: 16
+TEST:
+  IMAGE_SIZE:
+  - 2048
+  - 1024
+  BASE_SIZE: 2048
+  BATCH_SIZE_PER_GPU: 1
+  FLIP_TEST: false
+  MULTI_SCALE: false
