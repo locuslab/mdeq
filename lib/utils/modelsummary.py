@@ -121,7 +121,7 @@ def get_model_summary(model, *input_tensors, item_length=26, verbose=False):
                 + os.linesep + '-' * space_len * 5 + os.linesep
 
     params_sum5 = sum([p.nelement() for p in model.fullstage.parameters() if p.requires_grad])
-    params_sum4 = sum([p.nelement() for p in model.stage0.parameters() if p.requires_grad])
+    params_sum4 = sum([p.nelement() for p in model.stage0.parameters() if p.requires_grad]) if model.stage0 else 0
     params_sum3 = sum([p.nelement() for p in model.downsample.parameters() if p.requires_grad])
     params_sum2 = sum([p.nelement() for p in model.parameters() if p.requires_grad])
     params_sum = min(params_sum, params_sum2)     # To handle the weight-tied case to avoid double-counting 
