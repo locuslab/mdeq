@@ -374,9 +374,13 @@ class MDEQNet(nn.Module):
         )
         
         # PART I: Input injection module
-        self.stage0 = nn.Sequential(nn.Conv2d(self.init_chansize, self.init_chansize, kernel_size=1, bias=False),
-                                    nn.BatchNorm2d(self.init_chansize, momentum=BN_MOMENTUM),
-                                    nn.ReLU(False))
+        if self.downsample_times == 0:
+            # We use the downsample module above as the injection transformation
+            self.stage0 = None
+        else:
+            self.stage0 = nn.Sequential(nn.Conv2d(self.init_chansize, self.init_chansize, kernel_size=1, bias=False),
+                                        nn.BatchNorm2d(self.init_chansize, momentum=BN_MOMENTUM),
+                                        nn.ReLU(False))
         
         # PART II: MDEQ's f_\theta layer
         self.fullstage_cfg = cfg['MODEL']['EXTRA']['FULL_STAGE']      
@@ -434,7 +438,7 @@ class MDEQNet(nn.Module):
         dev = x.device
         
         # Inject only to the highest resolution...
-        x_list = [self.stage0(x)]
+        x_list = [self.stage0(x) if self.stage0 else x]
         for i in range(1, num_branches):
             bsz, _, H, W = x_list[-1].shape
             x_list.append(torch.zeros(bsz, self.num_channels[i], H//2, W//2).to(dev))   # ... and the rest are all zeros

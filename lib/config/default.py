@@ -73,6 +73,7 @@ _C.DATASET.EXTRA_TRAIN_SET = ''
 
 
 # training data augmentation
+_C.DATASET.AUGMENT = True
 _C.DATASET.FLIP = True
 _C.DATASET.SCALE_FACTOR = 0.25
 _C.DATASET.ROT_FACTOR = 30

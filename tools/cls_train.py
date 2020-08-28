@@ -169,9 +169,8 @@ def main():
         classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')  # For reference
         
         normalize = transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
-        transform_train = transforms.Compose([
-            transforms.RandomCrop(32, padding=4),     # ** Remove this line if no data augmentation **
-            transforms.RandomHorizontalFlip(),        # ** Remove this line if no data augmentation **
+        augment_list = [transforms.RandomCrop(32, padding=4), transforms.RandomHorizontalFlip()] if config.DATASET.AUGMENT else []
+        transform_train = transforms.Compose(augment_list + [
             transforms.ToTensor(),
             normalize,
         ])

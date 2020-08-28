@@ -51,6 +51,7 @@ DATASET:
   ROOT: 'data/cifar10/'
   TEST_SET: 'val'
   TRAIN_SET: 'train'
+  AUGMENT: true
 TEST:
   BATCH_SIZE_PER_GPU: 32
   MODEL_FILE: ''
@@ -60,7 +61,7 @@ TRAIN:
   END_EPOCH: 220
   RESUME: false
   LR_SCHEDULER: 'cosine'
-  PRETRAIN_STEPS: 20000
+  PRETRAIN_STEPS: 30000
   LR_FACTOR: 0.1
   LR_STEP:
   - 30
