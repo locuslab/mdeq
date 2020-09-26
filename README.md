@@ -9,10 +9,10 @@ We provide in this repo the implementation and the links to the pretrained class
 If you find thie repository useful for your research, please consider citing our work:
 
 ```
-@article{bai2020multiscale,
+@inproceedings{bai2020multiscale,
     author    = {Shaojie Bai and Vladlen Koltun and J. Zico Kolter},
     title     = {Multiscale Deep Equilibrium Models},
-    journal   = {arXiv:2006.08656},
+    journal   = {Advances in Neural Information Processing Systems (NeurIPS)},
     year      = {2020},
 }
 ```
