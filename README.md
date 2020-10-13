@@ -31,6 +31,7 @@ The structure of a multiscale deep equilibrium model (MDEQ) is shown below. All 
 Some examples of MDEQ segmentation results on the [Cityscapes](https://www.cityscapes-dataset.com/) dataset.
 
 <p align="center"/>
+<img src='images/demo.gif' width="300px"/>
 <img src='images/segmentation_example.png' width="800px"/>
 
 
