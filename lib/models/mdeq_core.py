@@ -374,7 +374,7 @@ class MDEQNet(nn.Module):
         )
         
         # PART I: Input injection module
-        if self.downsample_times == 0:
+        if self.downsample_times == 0 and self.num_branches <= 2:
             # We use the downsample module above as the injection transformation
             self.stage0 = None
         else:
