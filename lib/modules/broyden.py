@@ -127,7 +127,7 @@ def broyden(g, x0, threshold, eps, ls=False, name="unknown"):
     gx = g(x_est)        # (bsz, 2d, L')
     nstep = 0
     tnstep = 0
-    LBFGS_thres = min(threshold, 24)
+    LBFGS_thres = min(threshold, 27)
     
     # For fast calculation of inv_jacobian (approximately)
     Us = torch.zeros(bsz, total_hsize, n_elem, LBFGS_thres).to(dev)

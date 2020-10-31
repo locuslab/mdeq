@@ -12,3 +12,4 @@ data/
 output/
 *.ipynb
 PRIVATE_*
+*_deprecated.yaml

@@ -70,6 +70,8 @@ To train an MDEQ segmentation model on Cityscapes, do
 ```sh
 python -m torch.distributed.launch --nproc_per_node=4 tools/seg_train.py --cfg experiments/[DATASET_NAME]/[CONFIG_FILE_NAME].yaml
 ```
+where you should provide the pretrained ImageNet model path in the corresponding configuration (`.yaml`) file. We provide a sample pretrained model extractor in `pretrained_models/`, but you can also write your own script.
+
 Similarly, to test the model and generate segmentation results on Cityscapes, do
 
 ```sh
@@ -88,20 +90,32 @@ We provide some reasonably good pre-trained weights here so that one can quickly
 | ------------- | ----------------- | ------------------- | ----------------------- |
 | MDEQ-XL | ImageNet Classification | ImageNet | [download (.pkl)](https://drive.google.com/file/d/1MBUFBOAAI8m2eccNbHePrukpOiAzPbji/view?usp=sharing) |
 | MDEQ-XL | Cityscapes(val) Segmentation | Cityscapes | [download (.pkl)](https://drive.google.com/file/d/1Gu7pJLGvXBbU_sPxNfjiaROJwEwak2Z8/view?usp=sharing) |
+| MDEQ-Small | ImageNet Classification | ImageNet | [download (.pkl)](https://drive.google.com/file/d/12ANsUdJJ3_qb5nfiBVPOoON2GQ2v4W1g/view?usp=sharing) |
+| MDEQ-Small | Cityscapes(val) Segmentation | Cityscapes | [download (.pkl)](https://drive.google.com/file/d/11DZfYhHNK_XC6-Uob1Pp2pStS5EhP5dF/view?usp=sharing) |
 
 **Example of how to use the pretrained ImageNet model to train on Cityscapes**:
   1. Download the pretrained ImageNet `.pkl` file.
   2. Put the model under `pretrained_models/` folder with some file name `[FILENAME]`.
-  3. In the corresponding `experiments/cityscapes/cls_MDEQ_XL.yaml`, set `PRETRAINED` to `"pretrained_models/[FILENAME]"`. Make sure you **don't** make it the `MODEL_FILE`.
-  4. Run the MDEQ segmentation training command (see the "Usage" section above).
+  3. In the corresponding `experiments/cityscapes/seg_MDEQ_[SIZE].yaml` (where `SIZE` is typically `SMALL`, `LARGE` or `XL`), set `MODEL.PRETRAINED` to `"pretrained_models/[FILENAME]"`.
+  4. Run the MDEQ segmentation training command (see the "Usage" section above):
+```sh
+python -m torch.distributed.launch --nproc_per_node=[N_GPUS] tools/seg_train.py --cfg experiments/cityscapes/seg_MDEQ_[SIZE].yaml
+```
 
-(We'll soon update with the pretrained MDEQ-Large and MDEQ-Small ImageNet models!)
+**Example of how to use the pretrained Cityscapes model for inference**:
+  1. Download the pretrained Cityscapes `.pkl` file
+  2. Put the model under `pretrained_models/` folder with some file name `[FILENAME]`. 
+  3. In the corresponding `experiments/cityscapes/seg_MDEQ_[SIZE].yaml`  (where `SIZE` is typically `SMALL`, `LARGE` or `XL`), set `TEST.MODEL_FILE` to `"pretrained_models/[FILENAME]"`.
+  4. Run the MDEQ segmentation testing command (see the "Usage" section above):
+```sh
+python tools/seg_test.py --cfg experiments/cityscapes/seg_MDEQ_[SIZE].yaml
+```
 
 
 ### Tips:
 
-- To load the Cityscapes pretrained model, download the `.pkl` file below and specify the path in `config.[TRAIN/TEST].MODEL_FILE` (which is `''` by default) in the `.yaml` files.
-- The difference between `[TRAIN/TEST].MODEL_FILE` and `MODEL.PRETRAINED` arguments in the yaml files: the former is used to load all of the model parameters; the latter is for compound training (e.g., when transferring from ImageNet to Cityscapes, we want to discard the final classifier FC layer). 
+- To load the Cityscapes pretrained model, download the `.pkl` file and specify the path in `config.[TRAIN/TEST].MODEL_FILE` (which is `''` by default) in the `.yaml` files. This is **different** from setting `MODEL.PRETRAINED`, see the point below. 
+- The difference between `[TRAIN/TEST].MODEL_FILE` and `MODEL.PRETRAINED` arguments in the yaml files: the former is used to load all of the model parameters; the latter is for compound training (e.g., when transferring from ImageNet to Cityscapes, we want to discard the final classifier FC layers). 
 - The repo supports checkpointing of models at each epoch. One can resume from a previously saved checkpoint by turning on the `TRAIN.RESUME` argument in the yaml files.
 - Just like DEQs, the MDEQ models can be slower than explicit deep networks, and even more so as the image size increases (because larger images typically require more Broyden iterations to converge well; see Figure 5 in the paper). But one can play with the forward and backward thresholds to adjust the runtime.
 
