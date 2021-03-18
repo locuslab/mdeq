@@ -103,7 +103,7 @@ def validate(config, val_loader, model, criterion, lr_scheduler, epoch, output_d
             # compute output
             output = model(input, 
                            train_step=-1,       # Evaluate using MDEQ (even when pre-training)
-                           writer=writer_dict['writer'])
+                           writer=None if writer_dict is None else writer_dict['writer'])
             target = target.cuda(non_blocking=True)
 
             loss = criterion(output, target)

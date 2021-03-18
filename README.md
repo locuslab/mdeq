@@ -94,6 +94,15 @@ We provide some reasonably good pre-trained weights here so that one can quickly
 | MDEQ-Small | Cityscapes(val) Segmentation | Cityscapes | [download (.pkl)](https://drive.google.com/file/d/11DZfYhHNK_XC6-Uob1Pp2pStS5EhP5dF/view?usp=sharing) |
 
 **Example of how to use the pretrained ImageNet model to train on Cityscapes**:
+  1. Download the pretrained ImageNet `.pkl` file. (I recommend using the `gdown` command!)
+  2. Put the model under `pretrained_models/` folder with some file name `[FILENAME]`.
+  3. Run the MDEQ classification validation command:
+```sh
+python tools/cls_valid.py --testModel pretrained_models/[FILENAME] --cfg experiments/imagenet/cls_mdeq_[SIZE].yaml
+```
+For example, for **MDEQ-Small**, you should get >75% top-1 accuracy.
+
+**Example of how to use the pretrained ImageNet model to train on Cityscapes**:
   1. Download the pretrained ImageNet `.pkl` file.
   2. Put the model under `pretrained_models/` folder with some file name `[FILENAME]`.
   3. In the corresponding `experiments/cityscapes/seg_MDEQ_[SIZE].yaml` (where `SIZE` is typically `SMALL`, `LARGE` or `XL`), set `MODEL.PRETRAINED` to `"pretrained_models/[FILENAME]"`.
