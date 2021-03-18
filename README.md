@@ -93,7 +93,7 @@ We provide some reasonably good pre-trained weights here so that one can quickly
 | MDEQ-Small | ImageNet Classification | ImageNet | [download (.pkl)](https://drive.google.com/file/d/12ANsUdJJ3_qb5nfiBVPOoON2GQ2v4W1g/view?usp=sharing) |
 | MDEQ-Small | Cityscapes(val) Segmentation | Cityscapes | [download (.pkl)](https://drive.google.com/file/d/11DZfYhHNK_XC6-Uob1Pp2pStS5EhP5dF/view?usp=sharing) |
 
-**Example of how to use the pretrained ImageNet model to train on Cityscapes**:
+**I. Example of how to evaluate the pretrained ImageNet model**:
   1. Download the pretrained ImageNet `.pkl` file. (I recommend using the `gdown` command!)
   2. Put the model under `pretrained_models/` folder with some file name `[FILENAME]`.
   3. Run the MDEQ classification validation command:
@@ -102,7 +102,7 @@ python tools/cls_valid.py --testModel pretrained_models/[FILENAME] --cfg experim
 ```
 For example, for **MDEQ-Small**, you should get >75% top-1 accuracy.
 
-**Example of how to use the pretrained ImageNet model to train on Cityscapes**:
+**II. Example of how to use the pretrained ImageNet model to train on Cityscapes**:
   1. Download the pretrained ImageNet `.pkl` file.
   2. Put the model under `pretrained_models/` folder with some file name `[FILENAME]`.
   3. In the corresponding `experiments/cityscapes/seg_MDEQ_[SIZE].yaml` (where `SIZE` is typically `SMALL`, `LARGE` or `XL`), set `MODEL.PRETRAINED` to `"pretrained_models/[FILENAME]"`.
@@ -111,7 +111,7 @@ For example, for **MDEQ-Small**, you should get >75% top-1 accuracy.
 python -m torch.distributed.launch --nproc_per_node=[N_GPUS] tools/seg_train.py --cfg experiments/cityscapes/seg_MDEQ_[SIZE].yaml
 ```
 
-**Example of how to use the pretrained Cityscapes model for inference**:
+**III. Example of how to use the pretrained Cityscapes model for inference**:
   1. Download the pretrained Cityscapes `.pkl` file
   2. Put the model under `pretrained_models/` folder with some file name `[FILENAME]`. 
   3. In the corresponding `experiments/cityscapes/seg_MDEQ_[SIZE].yaml`  (where `SIZE` is typically `SMALL`, `LARGE` or `XL`), set `TEST.MODEL_FILE` to `"pretrained_models/[FILENAME]"`.
