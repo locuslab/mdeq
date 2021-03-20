@@ -132,7 +132,7 @@ def broyden(g, x0, threshold, eps, ls=False, name="unknown"):
     # For fast calculation of inv_jacobian (approximately)
     Us = torch.zeros(bsz, total_hsize, n_elem, LBFGS_thres).to(dev)
     VTs = torch.zeros(bsz, LBFGS_thres, total_hsize, n_elem).to(dev)
-    update = -gx
+    update = gx
     new_objective = init_objective = torch.norm(gx).item()
     prot_break = False
     trace = [init_objective]
