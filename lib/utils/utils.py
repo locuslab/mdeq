@@ -130,7 +130,8 @@ def get_optimizer(cfg, model):
         optimizer = optim.Adam(
             #model.parameters(),
             filter(lambda p: p.requires_grad, model.parameters()),
-            lr=cfg.TRAIN.LR
+            lr=cfg.TRAIN.LR,
+            weight_decay=cfg.TRAIN.WD
         )
     elif cfg.TRAIN.OPTIMIZER == 'rmsprop':
         optimizer = optim.RMSprop(
