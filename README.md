@@ -12,7 +12,7 @@ If you find thie repository useful for your research, please consider citing our
 @inproceedings{bai2020multiscale,
     author    = {Shaojie Bai and Vladlen Koltun and J. Zico Kolter},
     title     = {Multiscale Deep Equilibrium Models},
-    journal   = {Advances in Neural Information Processing Systems (NeurIPS)},
+    booktitle   = {Advances in Neural Information Processing Systems (NeurIPS)},
     year      = {2020},
 }
 ```
