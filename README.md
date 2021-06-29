@@ -1,5 +1,16 @@
 # Multiscale Deep Equilibrium Models
 
+
+:boom::boom::boom::boom: 
+
+**This repo is deprecated and we will soon stop actively maintaining it, as a more up-to-date (and simpler & more efficient) implementation of MDEQ with the same set of tasks as here is now available in the [DEQ repo](https://github.com/locuslab/deq).** 
+
+**We STRONGLY recommend using with the `MDEQ-Vision` code in the [DEQ repo](https://github.com/locuslab/deq)** (which also supports Jacobian-related analysis).
+
+:boom::boom::boom::boom:
+
+---
+
 This repository contains the code for the multiscale deep equilibrium (MDEQ) model proposed in the paper [Multiscale Deep Equilibrium Models](https://arxiv.org/abs/2006.08656) by Shaojie Bai, Vladlen Koltun and J. Zico Kolter.
 
 Is implicit deep learning relevant for general, large-scale pattern recognition tasks? We propose the multiscale deep equilibrium (MDEQ) model, which expands upon the DEQ formulation substantially to introduce simultaneous equilibrium modeling of multiple signal resolutions. Specifically, MDEQ solves for and backpropagates through synchronized equilibria of multiple feature representation streams. Such structure rectifies one of the major drawbacks of DEQ, and provide natural hierarchical interfaces for auxiliary losses and compound training procedures (e.g., pretraining and finetuning). Our experiment demonstrate for the first time that "shallow" implicit models can scale to and achieve near-SOTA results on practical computer vision tasks (e.g., megapixel images on Cityscapes segmentation).
